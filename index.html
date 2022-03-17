@@ -1,0 +1,211 @@
+<html>
+<!--
+------------------------------------------------------------------------
+-- uploadv2 Wearable Data Upload Tool                                 --
+-- Copyright 2021 by Kristof Van Laerhoven (ubicomp.eti.uni-siegen.de)--
+------------------------------------------------------------------------
+  This Source Code Form is subject to the terms of the Mozilla Public
+  License, v. 2.0. If a copy of the MPL was not distributed with this
+  file, You can obtain one at http://mozilla.org/MPL/2.0/.
+------------------------------------------------------------------------
+  Version date: 2021-04-08
+ TODO:
+  - UI should be cleaner
+------------------------------------------------------------------------
+-->
+<head>
+	<title>Upload Tool</title>
+	<meta charset="UTF-8">
+  <meta name="description" content="Upload Tool">
+  <meta name="author" content="Kristof Van Laerhoven">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<script src="Chart.min.js"></script>
+	<script src="Puck.min.js"></script>
+	<script src="uploadv2.js"></script>
+	<style>
+	*{
+	    margin: 0px;
+	    padding: 0px;
+	}
+	.area{
+	    background-color: green; /* For browsers that do not support gradients */
+	    background-image: linear-gradient(to bottom right, rgba(0,255,0,0), rgba(0,0,0,1));
+	    width: 100%;
+	    height:100vh;
+	}
+	.circles{
+	    position: absolute;
+	    top: 0;
+	    left: 0;
+	    width: 100%;
+	    height: 100%;
+	    overflow: hidden;
+	}
+	.circles li{
+	    position: absolute;
+	    display: block;
+	    list-style: none;
+	    width: 20px;
+	    height: 20px;
+	    background: rgba(255, 255, 255, 0.2);
+	    animation: animate 255s linear infinite;
+	    bottom: -150px;
+	}
+	.circles li:nth-child(1){
+	    left: 25%;
+	    width: 80px;
+	    height: 80px;
+	    animation-delay: 30s;
+	}
+	.circles li:nth-child(2){
+	    left: 10%;
+	    width: 20px;
+	    height: 20px;
+	    animation-delay: 2s;
+	    animation-duration: 120s;
+	}
+	.circles li:nth-child(3){
+	    left: 70%;
+	    width: 20px;
+	    height: 20px;
+	    animation-delay: 40s;
+	}
+
+	.circles li:nth-child(4){
+	    left: 40%;
+	    width: 60px;
+	    height: 60px;
+	    animation-delay: 5s;
+	    animation-duration: 180s;
+	}
+
+	.circles li:nth-child(5){
+	    left: 65%;
+	    width: 20px;
+	    height: 20px;
+	    animation-delay: 10s;
+	}
+
+	.circles li:nth-child(6){
+	    left: 75%;
+	    width: 110px;
+	    height: 110px;
+	    animation-delay: 300s;
+	}
+
+	.circles li:nth-child(7){
+	    left: 35%;
+	    width: 150px;
+	    height: 150px;
+	    animation-delay: 70s;
+	}
+
+	.circles li:nth-child(8){
+	    left: 50%;
+	    width: 25px;
+	    height: 25px;
+	    animation-delay: 15s;
+	    animation-duration: 450s;
+	}
+
+	.circles li:nth-child(9){
+	    left: 85%;
+	    width: 150px;
+	    height: 150px;
+	    animation-delay: 0s;
+	    animation-duration: 110s;
+	}
+	@keyframes animate {
+	    0%{
+	        transform: translateY(0) rotate(0deg);
+	        opacity: 1;
+	        border-radius: 0;
+	    }
+	    100%{
+	        transform: translateY(-1000px) rotate(720deg);
+	        opacity: 0;
+	        border-radius: 50%;
+	    }
+	}
+	</style>
+</head>
+<body style="zoom:110%">
+<div class="area" style="display:flex;justify-content:center;align-items:center;">
+	<ul class="circles">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+</ul>
+
+<div style="border-radius:10px;font-family:courier;font-size:10pt;border:2px solid black;margin:2px;padding:2px;position:relative;text-align:left;width:700px;background-color:#ccc;">
+<div id="buttons" style="padding-bottom:4px;padding:2px;margin:2px;background-color:#343;border-radius:7px;">
+	<div style="display:inline;width:50px;"><a href="https://www.uni-vechta.de/activate/activate-prevention/">
+		<svg height="50" width="50" viewBox="0 -17 224 210">
+			<rect x="16" y="0" width="220" height="220" style="fill:#343;stroke-width:0;stroke:#343" />
+			<circle cx="120" cy="100" r="100" stroke="white" stroke-width="0" fill="white" />
+			<circle cx="120" cy="100" r="85" stroke="#343" stroke-width="0" fill="#343" />
+			<circle cx="120" cy="100" r="60" stroke="white" stroke-width="0" fill="white" />
+			<circle cx="120" cy="100" r="45" stroke="#343" stroke-width="0" fill="#343" />
+			<circle cx="120" cy="100" r="20" stroke="white" stroke-width="0" fill="white" />
+			<rect x="111" y="0" width="18" height="100" style="fill:white;stroke-width:0;stroke:white" />
+			<polygon points="127,0,130,83,240,0" style="fill:#343;stroke-width:0" />
+		</svg></a>
+	</div>
+<div style="display:inline-block;width:4px;"></div>
+<!--
+  <button id="scan_install" onclick="connect_install()" onmouseover="mOver(this)" onmouseout="mOut(this)" title="(Re-)install the software on your watch." style="border-radius:5px;background-color:#eee;padding:2px;">
+			<svg style="width:34px;height:34px" viewBox="0 0 24 24">
+	    <path fill="currentColor" d="M2,11H7L4.5,8.5L5.92,7.08L10.84,12L5.92,16.92L4.5,15.5L7,13H2V11M12,18A6,6 0 0,0 18,12A6,6 0 0,0 12,6C10.6,6 9.31,6.5 8.29,7.29L6.87,5.87L7.05,5.73L8,0H16L16.95,5.73C18.81,7.19 20,9.45 20,12C20,14.54 18.81,16.81 16.95,18.27L16,24H8L7.05,18.27L6.87,18.13L8.29,16.71C9.31,17.5 10.6,18 12,18Z" />
+		</svg>Install</button> -->
+ <div style="display:inline-block;width:4px;"></div>
+ <button id="scan_stop" onclick="connect_upload()" onmouseover="mOver(this)" onmouseout="mOut(this)" title="Download all data and start logging" style="border-radius:5px;background-color:#eee;padding:2px;">
+  <svg style="width:34px;height:34px;" viewBox="0 0 24 24">
+ 		 <path fill="currentColor" d="M14,11H19L16.5,8.5L17.92,7.08L22.84,12L17.92,16.92L16.5,15.5L19,13H14V11M12,18A6,6 0 0,1 6,12A6,6 0 0,1 12,6C13.4,6 14.69,6.5 15.71,7.29L17.13,5.87L16.95,5.73L16,0H8L7.05,5.73C5.19,7.19 4,9.46 4,12C4,14.55 5.19,16.81 7.05,18.27L8,24H16L16.95,18.27L17.13,18.13L15.71,16.71C14.69,17.5 13.4,18 12,18Z" />
+ 	 </svg><div style="display:inline;padding-bottom:20px;">Download+Log</div></button>
+ <div style="display:inline-block;width:195px;text-align:left;background-color:#343;border-radius:2px;">
+	<label for="ST" style="font: 400 12px Arial;color:white;">Start at</label>
+	<input id="ST" type="number" min="0" max="23" size="4" style="font-size:12px;margin-top:5px;height:17px;" title="Enter a starting hour (0-23)."></input>
+  </br>
+	<label for="HZ" style="font: 400 12px Arial;color:white;">Freq.:</label>
+	<select id="HZ" type="text" size="4" style="font-size:12px;margin-top:5px;-webkit-appearance:menulist-button;height:17px;" title="Enter the sampling frequency.">
+		<option value="12.5" selected>12.5 Hz</option>
+		<option value="25">25 Hz</option>
+		<option value="50">50 Hz</option>
+		<option value="100">100 Hz</option>
+	</select>
+	<label for="GS" style="font: 400 12px Arial;color:white;">Sens.:</label>
+	<select id="GS" type="radio" size="2" style="font-size:12px;margin-top:5px;-webkit-appearance:menulist-button;height:17px;" title="Enter the accelerometer sensitivity.">
+   <option value="2">±2g</option>
+	 <option value="4">±4g</option>
+	 <option value="8" selected>±8g</option>
+	</select>
+</div>
+<div style="display:inline-block;width:4px;"></div>
+<div style="display:inline-block;width:4px;"></div>
+	<button id="scan_status" onclick="window.location.href='https://ubi29.informatik.uni-siegen.de/upload/inspect';" onmouseover="mOver(this)" onmouseout="mOut(this)" title="Inspect data files" style="border-radius:5px;background-color:#eee;padding:2px;">
+	 <svg style="width:34px;height:34px" viewBox="0 0 24 24">
+	 <path fill="currentColor" d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7.14,4.5 2.78,7.5 1,12C3.39,18.08 10.25,21.06 16.33,18.67C19.38,17.47 21.8,15.06 23,12C21.22,7.5 16.86,4.5 12,4.5M7,22H9V24H7V22M11,22H13V24H11V22M15,22H17V24H15V22Z" />
+</svg>Inspect files</button>
+<script>function mOver(obj){obj.style.color="green";obj.style.backgroundColor="#ddd";};function mOut(obj){obj.style.color="black";obj.style.backgroundColor="#eee";}</script>
+</div> 
+	<div id="output" style="font-family:courier;font-size:9pt;white-space:pre;padding:2px;background-color:white;text-align:left;margin-top:10px;"></div>
+	<div id="plot" style="width:100%; background-color:#000;">
+		<canvas id="plotcanvas" style="display:block; height:120px; width:100%;background-color:white;"></canvas>
+	</div>
+	<div id="data" style="font-family:courier;font-size:9pt;white-space:pre;padding:2px;background-color:white;text-align:left;margin-top:10px;"></div>
+	<div id="myProgress" style="width:100%;background-color:#ccc;margin-bottom:3px;">
+	  <div id="myBar" style="width:1%;height:30px;background-color:#ccc;"></div>
+	</div>
+	<div id="footer" style="border-radius:7px;font-family:courier;font-size:7pt;background-color:white;text-align:center;border:1px black solid;">
+		Upload v2.59  -- This tool is written by the <a href="https://ubicomp.eti.uni-siegen.de">UbiComp group</a> at the <a href="https://www.uni-siegen.de">University of Siegen</a>. Our privacy policy is found <a href="https://www.uni-siegen.de/start/kontakt/datenschutzerklaerung.html.en?lang=en">here</a>.
+	  </div>
+</div></div>
+</body>
+</html>
