@@ -1,0 +1,38 @@
+<!--
+--------------------------------------------------------------------
+inspect.html Wearable Data Inspect Tool
+ Copyright 2021 by Kristof Van Laerhoven (ubicomp.eti.uni-siegen.de)
+--------------------------------------------------------------------
+This Source Code Form is subject to the terms of the Mozilla Public
+License, v. 2.0. If a copy of the MPL was not distributed with this
+file, You can obtain one at http://mozilla.org/MPL/2.0/.
+--------------------------------------------------------------------
+
+Version date: 2021-03-25
+
+TODO:
+- more plotting!
+-->
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bin File Inspect</title>
+    <link rel="stylesheet" href="inspect.css"/>
+    <script src="inspect.js"></script>
+    <script src="Chart.min.js"></script>
+  </head>
+  <body>
+   <div class="area" style="display:flex;justify-content:center;align-items:center;">
+    <ul class="circles"><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li><li></li></ul>
+    <div id="box" style="border-radius:10px;font-family:courier;font-size:10pt;border:2px solid black;margin:2px;padding:2px;position:relative;text-align:left;width:740px;background-color:#ccc;">
+      <div style="width:100%;"><textarea id="upzone">Drop your bin file here to inspect</textarea></div>
+      <div id="info"></div>
+      <div id="plot" style="width:100%; background-color:#000;">
+        <canvas id="plotcanvas" style="display:block; height:120px; width:100%;background-color:white;"></canvas>
+    	</div>
+     </div>
+    </div>
+
+  </body>
+</html>
